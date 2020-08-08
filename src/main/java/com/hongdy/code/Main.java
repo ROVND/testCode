@@ -10,7 +10,7 @@ public class Main {
 
         List<String> dayList = new ArrayList<>();
 
-        for (int i = 0; i < 41; i++) {
+        for (int i = 0; i < 5; i++) {
             dayList.add(String.valueOf(i));
         }
         String value = getValue(dayList, 6, 7);
@@ -19,19 +19,20 @@ public class Main {
 
     public static String getValue(List<String> dayList, Integer column, Integer row) {
         StringBuilder sb = new StringBuilder();
+        int offset = 13;
         sb.append("=MAX(");
         int size = dayList.size();
-        int rowCount = dayList.size() / 13 + 1;
+        int rowCount = dayList.size() / offset + 1;
         List<String> startList = new ArrayList<>();
         List<String> endList = new ArrayList<>();
         for (int i = 0; i < rowCount * 2; i = i + 2) {
             String start = ExcelUtil.indexToColName(column) + (row + i);
             String end;
             int j = i / 2 + 1;
-            if (j * 13 > size) {
-                end = ExcelUtil.indexToColName(column + 13 - (j * 13 - size) - 1) + (row + i);
+            if (j * offset > size) {
+                end = ExcelUtil.indexToColName(column + offset - (j * offset - size) - 1) + (row + i);
             } else {
-                end = ExcelUtil.indexToColName(column + 13 - 1) + (row + i);
+                end = ExcelUtil.indexToColName(column + offset - 1) + (row + i);
             }
             startList.add(start);
             endList.add(end);
